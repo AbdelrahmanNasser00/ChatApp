@@ -148,7 +148,7 @@ header .navigation .contact:hover {
     padding: 10px;
     border-radius: 15px;
     border-bottom-left-radius: 0px;
-    width: 50%;
+    width: 90%;
 
 }
 
@@ -159,7 +159,7 @@ header .navigation .contact:hover {
     padding: 10px;
     border-radius: 15px;
     border-bottom-right-radius: 0px;
-    width: 50%;
+    width: 90%;
     margin-left: auto;
     /* Align right messages to the right */
 }
