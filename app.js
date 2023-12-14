@@ -14,18 +14,18 @@ app.get("/", (request, response, next) => {
   response.sendFile(path.join(__dirname, "index.html"));
 });
 
-// const db = {
-//   host: "bgio7txvhtajhbzdc9qr-mysql.services.clever-cloud.com",
-//   user: "udy8rbgnevygcpjh",
-//   password: "yPw7LYfLVD65Jq1nHVDY",
-//   database: "bgio7txvhtajhbzdc9qr",
-// };
 const db = {
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "db",
+  host: "bgio7txvhtajhbzdc9qr-mysql.services.clever-cloud.com",
+  user: "udy8rbgnevygcpjh",
+  password: "yPw7LYfLVD65Jq1nHVDY",
+  database: "bgio7txvhtajhbzdc9qr",
 };
+// const db = {
+//   host: "localhost",
+//   user: "root",
+//   password: "password",
+//   database: "db",
+// };
 
 const connection = mysql.createConnection(db);
 const pool = mysql.createPool(db);
@@ -80,7 +80,7 @@ io.on("connect", async (socket) => {
   });
 });
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`listen to server with port ${port}`);
 });
