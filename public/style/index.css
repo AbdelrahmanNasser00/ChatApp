@@ -1,0 +1,214 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    --main-color: #053f5c;
+    --secondery-color: #9fe7f5;
+    background-image: url(../imgs/5172658.jpg);
+    background-size: cover;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Start Header */
+header {
+    background-color: transparent;
+    width: 100%;
+    padding: 0px 10%;
+    height: 100px;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header li,
+a,
+button {
+    text-decoration: none;
+    /* color: #9fe7f5; */
+    color: white;
+    font-weight: 800;
+
+}
+
+header .navigation {
+    list-style: none;
+    padding-right: 100px;
+    font-size: 16px;
+    justify-content: right;
+}
+
+header .navigation li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+header .navigation li a {
+    transition: all 0.3s ease 0s;
+}
+
+header .navigation li a:hover {
+    color: #429ebd;
+}
+
+header .navigation .contact {
+    border: none;
+    border-radius: 15px;
+    background-color: var(--secondery-color);
+    transition: all 0.3s ease 0s;
+    padding: 9px 25px;
+    cursor: pointer;
+    color: var(--main-color);
+}
+
+header .navigation .contact:hover {
+    background-color: #429ebd;
+}
+
+/* End Header */
+/* Start chat */
+.form {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.form .container {
+    background-color: white;
+    width: 400px;
+    height: 650px;
+    position: absolute;
+    top: 5%;
+    left: 38%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form .container form {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.form .container .message {
+    display: flex;
+    height: 25px;
+    text-align: center;
+    align-items: center;
+}
+
+.form .container .name-container {
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+}
+
+.form .container .name-container input {
+    width: 90%;
+    height: 100%;
+}
+
+.form .container .messages-container {
+    height: 90%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-y: 2px;
+    overflow-x: hidden;
+    text-align: left;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.form .container .messages-container .message-left #message {
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+.form .container .messages-container .message-left {
+    background-color: #053f5c;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    border-bottom-left-radius: 0px;
+    width: 50%;
+
+}
+
+.form .container .messages-container .message-right {
+    background-color: #429ebd;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    border-bottom-right-radius: 0px;
+    width: 50%;
+    margin-left: auto;
+    /* Align right messages to the right */
+}
+
+.form .container .messages-container .message-left div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+}
+
+.form .container .messages-container .message-right div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.form .container .message-sender {
+    height: 10%;
+    width: 100%;
+    background-color: #429ebd;
+    display: flex;
+}
+
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.form .container .message-sender {
+    border-radius: 20px;
+}
+
+.form .container .message-sender input {
+    width: 80%;
+    padding-top: 20px;
+    text-align: left;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.form .container .message-sender button {
+    width: 20%;
+    color: black;
+    border-radius: 20px;
+    /* padding-top: 20px; */
+}
+
+/* End Chat */
