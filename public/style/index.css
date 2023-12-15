@@ -152,6 +152,22 @@ header .navigation .contact:hover {
 
 }
 
+.form .container .messages-container .message-left .message-top {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+}
+
+.form .container .messages-container .message-left .date {
+    font-size: 10px;
+}
+
+.form .container .messages-container .message-left .name {
+    font-size: 15px;
+}
+
 .form .container .messages-container .message-right {
     background-color: #429ebd;
     color: white;
@@ -164,19 +180,23 @@ header .navigation .contact:hover {
     /* Align right messages to the right */
 }
 
-.form .container .messages-container .message-left div {
+
+
+.form .container .messages-container .message-right .message-top {
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     align-items: center;
     height: auto;
 }
 
-.form .container .messages-container .message-right div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.form .container .messages-container .message-right .date {
+    font-size: 10px;
 }
 
+.form .container .messages-container .message-right .name {
+    font-size: 15px;
+}
 
 .form .container .message-sender {
     height: 10%;

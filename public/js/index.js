@@ -49,11 +49,13 @@ function addMessagesHistory(isOwnMessage, message) {
   const myMessageName = isOwnMessage ? "You" : message.sender_name;
   const element = `
             <div class="${isOwnMessage ? "message-right" : "message-left"}">
-                <div>
-                    <h2 id="name">${myMessageName}:</h2>
-                     <p id="message">${message.content}</p>
-                </div>                           
-                <span id="date">${moment(message.timestamp).fromNow()}</span>
+                <div class="message-top">
+                    <h2 class="name" id="name">${myMessageName}</h2>
+                    <div class="date" id="date">${moment(
+                      message.timestamp
+                    ).fromNow()}</div>
+                </div>    
+                <p id="message">${message.content}</p>  
             </div>
     `;
   messageContainer.innerHTML += element;
@@ -61,14 +63,13 @@ function addMessagesHistory(isOwnMessage, message) {
 function addMessageToUI(isOwnMessage, data) {
   const myMessageName = isOwnMessage ? "You" : data.sender;
   const element = `
-            <div class="${isOwnMessage ? "message-right" : "message-left"}">
-                <div>
-                    <h2 id="name">${myMessageName}:</h2>
-                     <p id="message">${data.message}</p>
-                </div>                           
-                <span id="date">${moment(data.dataTime).fromNow()}</span>
-            </div>
-    `;
+    <div class="${isOwnMessage ? "message-right" : "message-left"}">
+        <div class="message-top">
+            <h2 class="name" id="name">${myMessageName}</h2>
+            <div class="date" id="date">${moment(data.dataTime).fromNow()}</div>
+        </div>    
+        <p id="message">${data.message}</p>                           
+    </div>`;
   messageContainer.innerHTML += element;
 }
 function isValidName(nameInput) {
