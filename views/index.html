@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="../style/index.css" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css" type="text/css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"rel="stylesheet">
+    <script src="https://kit.fontawesome.com/71d7eea931.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>
+         <i class="logo-icon"></i>
+         <a href="/" class="logo">Realtime Lecturing</a>
+       </h1>
+        <div class="navigation">
+         <li><a href="/">Home</a></li>
+         <li><a href="/login">Login</a></li>
+         <li><a href="/registeration">Sign-Up</a></li>
+         <button class="contact">Contact</button>
+        </div>
+     </header>
+     <div class="form">
+        <div class="container">
+            <form id="form">
+                    <div class="messages-container" id="messages-container">
+                        
+                    </div>
+                    <div class="message-sender" id="message-sender">
+                        <input type="text" name="" id="message-input">
+                        <button type="submit" name="send" id="send-button" >send</button>
+                    </div>
+            </form>
+            <div class="online-users">                    
+                    <div class="online-users-top">
+                        <i class="fa-solid fa-users" id="group-icon"></i>
+                        <h2>Online users</h2>
+                    </div>
+                    <div class="online-users-container" id="online-users-container">
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+</html>

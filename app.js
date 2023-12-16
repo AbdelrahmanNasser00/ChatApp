@@ -11,7 +11,7 @@ const { error } = require("console");
 app.use(express.static("public"));
 
 app.get("/", (request, response, next) => {
-  response.sendFile(path.join(__dirname, "index.html"));
+  response.sendFile(path.join(__dirname, "/views/index.html"));
 });
 
 const db = {
@@ -39,20 +39,36 @@ connection.connect((error) => {
   console.log("connected to database successfully");
 });
 
-let socketsConnected = new Set();
+let socketsConnected = new Map();
+console.log(socketsConnected);
+let onlineUsers = new Set();
+let users = [];
 
 io.on("connect", async (socket) => {
-  console.log(socket.id);
-  socketsConnected.add(socket.id);
-  // send number of clients
+  console.log(socketsConnected);
+
   io.emit("clients-number", socketsConnected.size);
+
+  socket.on("new-user", (data) => {
+    const uniqueId = `${socket.id}-${socket.handshake.address}`;
+    socketsConnected.set(uniqueId, data.name);
+    onlineUsers.add(data.name);
+
+    // Emit new user data to the client
+    io.emit("new-user-data", { socketId: uniqueId, name: data.name });
+
+    // Convert Map to array of objects and send it to the client
+    const socketsArray = Array.from(socketsConnected.entries()).map(
+      ([id, name]) => ({ socketId: id, name })
+    );
+    io.emit("online-users", socketsArray);
+  });
 
   // Add old messages to chat
   try {
     const [rows] = await promisePool.execute(
       "select* from messages order by timestamp ASC LIMIT 10"
     );
-    console.log(rows);
     socket.emit("chat-history", rows);
   } catch (error) {
     console.error("Error fetching chat history from the database:", error);
@@ -60,12 +76,21 @@ io.on("connect", async (socket) => {
 
   socket.on("disconnect", () => {
     console.log("Socket disconnected", socket.id);
-    socketsConnected.delete(socket.id);
-    io.emit("clients-number", socketsConnected.size);
+    const disconnectedUniqueId = `${socket.id}-${socket.handshake.address}`;
+
+    // Remove the disconnected user from the set of online users
+    const disconnectedUserName = socketsConnected.get(disconnectedUniqueId);
+    onlineUsers.delete(disconnectedUserName);
+    socketsConnected.delete(disconnectedUniqueId);
+
+    // Convert Map to array of objects and send it to the client
+    const socketsArray = Array.from(socketsConnected.entries()).map(
+      ([id, name]) => ({ socketId: id, name })
+    );
+    io.emit("online-users", socketsArray);
   });
 
   socket.on("message", async (data) => {
-    console.log(data);
     // Store messages in database
     const insertQuery = "insert into messages(sender_name,content) values(?,?)";
     try {

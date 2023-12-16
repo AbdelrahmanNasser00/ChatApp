@@ -1,21 +1,48 @@
 const socket = io();
 const clientsNumber = document.getElementById("Clients-Number");
 const messageContainer = document.getElementById("messages-container");
-// const nameInput = document.getElementById("name-Input");
-
+const messageInput = document.getElementById("message-input");
+const onlineUsersContainer = document.getElementById("online-users-container");
+const form = document.getElementById("form");
 const nameInput = prompt("please enter your name");
 senderName = nameInput;
-
-const messageInput = document.getElementById("message-input");
-const form = document.getElementById("form");
+const senderData = {
+  socketId: null,
+  name: senderName,
+};
+socket.emit("new-user", senderData);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   sendMessage();
 });
 
-socket.on("clients-number", (data) => {
-  clientsNumber.innerText = `Total clients: ${data}`;
+// socket.on("new-user-name", (data) => {
+//   addOnlineUserToUi(data);
+// });
+
+// Add user's message to message's container
+socket.on("chat-message", (data) => {
+  console.log(data);
+  addMessageToUI(false, data);
+});
+
+// Retreive old chat when new user login
+socket.on("chat-history", (history) => {
+  history.forEach((message) => {
+    if (message.sender_name === senderName) {
+      console.log("message has been added");
+      addMessagesHistory(true, message);
+    } else {
+      addMessagesHistory(false, message);
+    }
+  });
+});
+
+// When new user connected, his name added to online user section
+socket.on("online-users", (socketsArray) => {
+  console.log(socketsArray);
+  updateOnlineUsersUI(socketsArray);
 });
 
 function sendMessage() {
@@ -30,21 +57,6 @@ function sendMessage() {
   messageInput.value = "";
 }
 
-socket.on("chat-message", (data) => {
-  console.log(data);
-  addMessageToUI(false, data);
-});
-
-socket.on("chat-history", (history) => {
-  history.forEach((message) => {
-    if (message.sender_name === senderName) {
-      console.log("message has been added");
-      addMessagesHistory(true, message);
-    } else {
-      addMessagesHistory(false, message);
-    }
-  });
-});
 function addMessagesHistory(isOwnMessage, message) {
   const myMessageName = isOwnMessage ? "You" : message.sender_name;
   const element = `
@@ -60,6 +72,7 @@ function addMessagesHistory(isOwnMessage, message) {
     `;
   messageContainer.innerHTML += element;
 }
+
 function addMessageToUI(isOwnMessage, data) {
   const myMessageName = isOwnMessage ? "You" : data.sender;
   const element = `
@@ -72,9 +85,27 @@ function addMessageToUI(isOwnMessage, data) {
     </div>`;
   messageContainer.innerHTML += element;
 }
+
 function isValidName(nameInput) {
   // Use a regular expression to check for valid name characters
   if (nameInput === null) {
     return false;
   }
+}
+
+function updateOnlineUsersUI(userList) {
+  onlineUsersContainer.innerHTML = "";
+  userList.forEach((user) => {
+    const element = `
+      <div class="user">
+        <div class="user-left">
+          <i class="fa-solid fa-user" id="user-icon"></i>
+          <h3 class="online-user-name">${user.name}</h3>
+        </div>
+        <div class="user-right">
+          <i class="fa-solid fa-circle" id="online-icon"></i>
+        </div>
+      </div>`;
+    onlineUsersContainer.innerHTML += element;
+  });
 }
