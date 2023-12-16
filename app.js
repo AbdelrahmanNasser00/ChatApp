@@ -19,12 +19,16 @@ const db = {
   user: "udy8rbgnevygcpjh",
   password: "yPw7LYfLVD65Jq1nHVDY",
   database: "bgio7txvhtajhbzdc9qr",
+  charset: "utf8mb4",
+  collation: "utf8mb4_unicode_ci",
 };
 // const db = {
 //   host: "localhost",
 //   user: "root",
 //   password: "password",
 //   database: "db",
+//   charset: "utf8mb4",
+//   collation: "utf8mb4_unicode_ci",
 // };
 
 const connection = mysql.createConnection(db);
