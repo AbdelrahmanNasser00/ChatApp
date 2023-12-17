@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chat App</title>
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="../style/index.css" type="text/css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -28,6 +28,7 @@
          <li><a href="/registeration">Sign-Up</a></li>
          <button class="contact">Contact</button>
         </div>
+
      </header>
      <div class="form">
         <div class="container">
@@ -36,8 +37,11 @@
                         
                     </div>
                     <div class="message-sender" id="message-sender">
-                        <input type="text" name="" id="message-input">
-                        <button type="submit" name="send" id="send-button" >send</button>
+                        <!-- <input class="message-input" type="text" name="" id="message-input" placeholder="Write some thing..."> -->
+                        <div class="message-input-container">
+                            <textarea class="message-input" id="message-input" placeholder="Type here..."></textarea>
+                          </div>
+                        <button class="send-button" type="submit" name="send" id="send-button" ><i class="fa-solid fa-paper-plane"></i></button>
                     </div>
             </form>
             <div class="online-users">                    
@@ -53,5 +57,19 @@
     </div>
     <script src="../socket.io/socket.io.js"></script>
     <script src="../js/index.js"></script>
+    <script>
+        const textarea = document.getElementById('message-input');
+        const textareaContainer = document.getElementById('message-input-container')
+        textarea.addEventListener('input', function () {
+            this.style.height = '100%';
+            this.scrollTop = 0;
+        });
+        messageInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+        }
+        });
+    </script>
 </body>
 </html>

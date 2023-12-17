@@ -19,16 +19,12 @@ const db = {
   user: "udy8rbgnevygcpjh",
   password: "yPw7LYfLVD65Jq1nHVDY",
   database: "bgio7txvhtajhbzdc9qr",
-  charset: "utf8mb4",
-  collation: "utf8mb4_unicode_ci",
 };
 // const db = {
 //   host: "localhost",
 //   user: "root",
 //   password: "password",
 //   database: "db",
-//   charset: "utf8mb4",
-//   collation: "utf8mb4_unicode_ci",
 // };
 
 const connection = mysql.createConnection(db);
@@ -71,7 +67,7 @@ io.on("connect", async (socket) => {
   // Add old messages to chat
   try {
     const [rows] = await promisePool.execute(
-      "select* from messages order by timestamp ASC LIMIT 10"
+      "select* from messages order by timestamp ASC"
     );
     socket.emit("chat-history", rows);
   } catch (error) {
