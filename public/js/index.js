@@ -5,11 +5,13 @@ const messageInput = document.getElementById("message-input");
 const onlineUsersContainer = document.getElementById("online-users-container");
 const form = document.getElementById("form");
 let nameInput = prompt("please enter your name");
+
+// Check user name validation
 while (!isValidName(nameInput)) {
   let name = prompt("please enter valid name");
   nameInput = name;
 }
-console.log(nameInput);
+
 senderName = nameInput;
 
 const senderData = {
@@ -22,10 +24,6 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   sendMessage();
 });
-
-// socket.on("new-user-name", (data) => {
-//   addOnlineUserToUi(data);
-// });
 
 // Add user's message to message's container
 socket.on("chat-message", (data) => {
@@ -47,12 +45,10 @@ socket.on("chat-history", (history) => {
 
 // When new user connected, his name added to online user section
 socket.on("online-users", (socketsArray) => {
-  console.log(socketsArray);
   updateOnlineUsersUI(socketsArray);
 });
 
 function sendMessage() {
-  console.log(messageInput.value);
   const data = {
     sender: senderName,
     message: messageInput.value,
@@ -61,8 +57,11 @@ function sendMessage() {
   socket.emit("message", data);
   addMessageToUI(true, data);
   messageInput.value = "";
+
+  scrollMessageContainer();
 }
 
+// Add old messages to message container
 function addMessagesHistory(isOwnMessage, message) {
   const myMessageName = isOwnMessage ? "" : message.sender_name;
   const element = `
@@ -77,8 +76,10 @@ function addMessagesHistory(isOwnMessage, message) {
             </div>
     `;
   messageContainer.innerHTML += element;
+  scrollMessageContainer();
 }
 
+// When user send message it add it to message container
 function addMessageToUI(isOwnMessage, data) {
   const myMessageName = isOwnMessage ? "" : data.sender;
   const element = `
@@ -94,14 +95,15 @@ function addMessageToUI(isOwnMessage, data) {
   messageContainer.innerHTML += element;
 }
 
+// Check user name is valid or not
 function isValidName(nameInput) {
-  // Use a regular expression to check for valid name characters
   if (nameInput === null || nameInput === "") {
     return false;
   }
   return true;
 }
 
+// When any signin it add him to Online users section
 function updateOnlineUsersUI(userList) {
   onlineUsersContainer.innerHTML = "";
   userList.forEach((user) => {
@@ -117,4 +119,10 @@ function updateOnlineUsersUI(userList) {
       </div>`;
     onlineUsersContainer.innerHTML += element;
   });
+}
+
+// Make scroll bar scrolled down when any message sended
+function scrollMessageContainer() {
+  const messageContainer = document.getElementById("messages-container");
+  messageContainer.scrollTop = messageContainer.scrollHeight;
 }

@@ -40,7 +40,6 @@ connection.connect((error) => {
 });
 
 let socketsConnected = new Map();
-console.log(socketsConnected);
 let onlineUsers = new Set();
 let users = [];
 
