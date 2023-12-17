@@ -395,3 +395,20 @@ h1 {
     display: flex;
     flex-direction: row;
 }
+
+.form .container .messages-container .user-joined-message {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.form .container .messages-container .user-joined-message p {
+    background-color: grey;
+    border-radius: 30px;
+    font-size: 14px;
+    font-size: 14px;
+    width: 70%;
+    word-wrap: break-word;
+    margin: 5px;
+}

@@ -13,7 +13,6 @@ while (!isValidName(nameInput)) {
 }
 
 senderName = nameInput;
-
 const senderData = {
   socketId: null,
   name: senderName,
@@ -26,7 +25,7 @@ form.addEventListener("submit", (event) => {
 });
 
 // Add user's message to message's container
-socket.on("chat-message", (data) => {
+socket.on("add-message-to-left", (data) => {
   console.log(data);
   addMessageToUI(false, data);
 });
@@ -48,6 +47,16 @@ socket.on("online-users", (socketsArray) => {
   updateOnlineUsersUI(socketsArray);
 });
 
+// Add message to others that a new user joined the chat
+socket.on("new-user-joined", (data) => {
+  newUserJoinedMessage(data);
+});
+
+//
+socket.on("user-leave-chat", (data) => {
+  userLeaveMessage(data);
+});
+// send my own message to other users and show it in message container
 function sendMessage() {
   const data = {
     sender: senderName,
@@ -125,4 +134,22 @@ function updateOnlineUsersUI(userList) {
 function scrollMessageContainer() {
   const messageContainer = document.getElementById("messages-container");
   messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+function newUserJoinedMessage(data) {
+  const element = `
+      <div class="user-joined-message">
+            <p>${data} has joined the chat</p>
+      </div>
+  `;
+  messageContainer.innerHTML += element;
+}
+
+function userLeaveMessage(data) {
+  const element = `
+      <div class="user-joined-message">
+          <p>${data} has leaved the chat</p>
+      </div>
+  `;
+  messageContainer.innerHTML += element;
 }

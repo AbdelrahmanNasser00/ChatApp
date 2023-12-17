@@ -61,6 +61,7 @@ io.on("connect", async (socket) => {
       ([id, name]) => ({ socketId: id, name })
     );
     io.emit("online-users", socketsArray);
+    io.emit("new-user-joined", data.name);
   });
 
   // Add old messages to chat
@@ -79,6 +80,8 @@ io.on("connect", async (socket) => {
 
     // Remove the disconnected user from the set of online users
     const disconnectedUserName = socketsConnected.get(disconnectedUniqueId);
+    io.emit("user-leave-chat", disconnectedUserName);
+
     onlineUsers.delete(disconnectedUserName);
     socketsConnected.delete(disconnectedUniqueId);
 
@@ -97,7 +100,9 @@ io.on("connect", async (socket) => {
         "insert into messages(sender_name,content) values(?,?)",
         [data.sender, data.message]
       );
-      socket.broadcast.emit("chat-message", data);
+
+      // Send message to all users in chat after store in database
+      socket.broadcast.emit("add-message-to-left", data);
     } catch (error) {
       console.error("Error inserting message into the database:", error);
     }
