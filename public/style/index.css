@@ -149,7 +149,7 @@ header .navigation .contact:hover {
 /* Left message */
 .form .container .messages-container .message-left {
     margin: 10px;
-    width: 60%;
+    width: fit-content;
     border-radius: 15px 15px 15px 0px;
     padding: 7px 10px 0px 10px;
     background-color: #eeeeee;
@@ -191,7 +191,7 @@ header .navigation .contact:hover {
 /* Right message */
 .form .container .messages-container .message-right {
     margin: 10px;
-    width: 60%;
+    width: fit-content;
     border-radius: 15px 15px 0px 15px;
     padding: 7px 10px 0px 10px;
     background-color: #0077FF;
